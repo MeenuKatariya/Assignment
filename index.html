@@ -13,7 +13,7 @@
         Search
 
     </button>
-    <div class="result">
+    <div id="result">
 
     </div>
     
@@ -25,7 +25,36 @@ if(user==''){
     alert("Please Enter Username")
     return
 }
-fetch(`http://localhost:8080/user/${user}`).then(x=>x.json()).then(x=>console.log(x.data.items))
+fetch(`http://localhost:8080/user/${user}`).then(x=>x.json()).then(x=>{
+    
+    
+    
+    x.data.items.forEach(element => {
+        var p=document.createElement('p')
+        p.innerHTML=element.login
+        var b=document.createElement("button")
+        b.innerText='Show'
+        b.addEventListener('click',()=>{
+
+fetch(`http://localhost:8080/user/det/${element.login}`).then(x=>x.json()).then((x)=>{
+    var g      =document.createElement('p')
+    p.innerHTML=JSON.stringify(x)
+    p.appendChild(g)
+
+
+})
+
+
+
+
+        })
+        p.appendChild(b)
+        document.getElementById('result').appendChild(p)
+        
+    });
+
+
+})
 }
 
 

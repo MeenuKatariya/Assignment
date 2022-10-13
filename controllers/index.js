@@ -47,8 +47,13 @@ var user = userschema.findOne({
 },(result,error)=>{
    if(error){
       console.log(error)
-   }else{
+   } else if(result){
       console.log(result.userdata)
+   }
+   else{
+      res.send({
+         "error":"somethin went worng"
+      })
    }
 })
 // .then(x=>{ 
@@ -76,6 +81,13 @@ var schema = new userschema({
    repo:repos
 })
 schema.save()
+// }
+res.send({
+   userdata:userdata,
+   follow:followers,
+   repos:repos,
+   following:following
+})
 }
 // else{
 //    console.log("data from database")
@@ -84,14 +96,6 @@ schema.save()
 //    repos=x.repos,
 //    following=x.following
    
-// }
-res.send({
-   userdata:userdata,
-   follow:followers,
-   repos:repos,
-   following:following
-})
-
  })
 
 
